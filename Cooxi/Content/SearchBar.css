@@ -1,0 +1,14 @@
+﻿.input-group-search {
+    display: block;
+    padding-top: 10px;
+    padding-left: 20px;
+}
+
+.search-input {
+    max-width: 650px !important;
+}
+
+.cookbook-button-wrapper {
+    padding-top: 10px;
+    margin-left: 0px;
+}

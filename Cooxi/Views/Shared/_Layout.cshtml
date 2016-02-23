@@ -9,35 +9,44 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="row user-bar">
         <div class="container">
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Recipes", "Index", "Recipes")</li>
-
-                    @if (Request.IsAuthenticated && User.IsInRole("Admin")) {
-                        <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
+            <ul class="user-bar-admin-options-list hidden">
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
                         <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
-                    }
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+                }
+            </ul>
+            @Html.Partial("_LoginPartial")
         </div>
     </div>
-    <div class="logo-search">
+    <div class="row main-search">
         <div class="container">
-            @Html.Partial("_MainSearch")
+            @Html.Partial("_SearchPartial")
         </div>
     </div>
-    
+    <div class="row main-nav">
+        <div class="container">
+            @Html.Partial("_NavigationPartial")
+        </div>
+    </div>
+    <div class="row main-body">
+        <div class="container">
+        <div class="col-md-2 left-menu">
+            @Html.Partial("_SideBar")
+        </div>
+        <div class="col-md-10 page-body">
+            @RenderBody()
+        </div>
+            </div>
+    </div>
+
     <div class="container body-content">
-        @RenderBody()
+        
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Cooxi by Mateusz Woźniak</p>
         </footer>
     </div>
 

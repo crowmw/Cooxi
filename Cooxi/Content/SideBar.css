@@ -1,0 +1,17 @@
+﻿.sidebar-nav ul{
+    list-style-type: none;
+    padding-left: 10px;
+}
+
+.sidebar-nav ul li {
+    padding-top: 5px;
+}
+
+.sidebar-categories {
+    position: relative;
+    border-right: 1px solid #ccc;
+    height:inherit;
+}
+.main-body {
+    position: relative;
+}

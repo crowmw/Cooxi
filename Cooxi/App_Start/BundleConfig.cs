@@ -24,7 +24,11 @@ namespace IdentitySample
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/UserBar.css",
+                      "~/Content/SearchBar.css",
+                      "~/Content/NavigationBar.css",
+                      "~/Content/SideBar.css"));
         }
     }
 }

@@ -1,0 +1,55 @@
+﻿.user-bar {
+    position: relative;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    height: 29px;
+    background: #353230;
+    border-bottom : 1px solid #353230;
+}
+
+.user-bar .container {
+    border-right: 1px solid #fff;
+    position: relative;
+}
+
+.user-bar ul {
+    position: absolute;
+    display: inline-block;
+    list-style-type: none;
+    right: 0px;
+    padding: 0px;
+    font-size:0;
+}
+
+.user-bar ul > li:first-child{
+    border-left: 1px solid #424242;
+}
+
+.user-bar ul > li:last-child{
+    border-left: 1px solid #424242;
+    border-right: 1px solid #424242;
+}
+
+.user-bar li{
+    border-left: 1px solid #424242;
+    height: 28px;
+    display: inline-block;
+    margin: 0px;
+    padding: 0px;
+}
+
+.user-bar li:hover>a {
+    text-decoration: none;
+    background: #222;
+    height: 29px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.user-bar li a{
+    color: #fff;
+    font-size:small;
+    display: block;
+    padding: 5px 15px 5px 15px !important;
+}
