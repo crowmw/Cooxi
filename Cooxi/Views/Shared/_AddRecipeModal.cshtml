@@ -1,0 +1,111 @@
+﻿<div id="addRecipeModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="closeModal" type="button" class="close" data-dissmiss="modal" aria-hidden="true">x</button>
+                <h3>Wybierz zdjęcie</h3>
+            </div>
+            <div class="modal-body">
+                <div id="insta-photos">
+                    <ul id="insta-photos-list"></ul>
+                </div>
+                <div id="recipe-details">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div id="title-container" class="form-group">
+                                <label class="control-label" style="display:block">Tytuł przepisu</label>
+                                <input class="form-control" type="text" placeholder="Podaj tytuł przepisu..." />
+                            </div>
+                            <div id="ingredients-container" class="form-group">
+                                <label class="control-label" style="display:block">Składniki</label>
+                                <div id="ingredients-container">
+                                    <div class="input-group adding-ingredient-input-group">
+                                        <input type="text" id="adding-ingredient-name" placeholder="Nazwa składnika..." class="form-control">
+                                        <input type="text" id="adding-ingredient-count" placeholder="Ilość" class="form-control">
+                                        <select id="adding-measure-units-select" class="form-control">
+                                            <option>gram</option>
+                                            <option>sztuk</option>
+                                            <option>szczypta</option>
+                                            <option>łyżeczek</option>
+                                            <option>łyżek</option>
+                                            <option>kostek</option>
+                                            <option>filiżanek</option>
+                                            <option>szklanek</option>
+                                            <option>litrów</option>
+                                        </select>
+
+                                    </div>
+                                    <a id="add-ingredient">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </a>
+                                    <li id="ingredients-list"></li>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="insta-container" class="col-md-5 col-centered">
+                            <div class="row-centered">
+                                <div id="insta-image-container">
+                                    <img id="selected-image" src="~/Content/img-placeholder.png" alt="image-placeholder.png" class="img-thumbnail"/>
+                                </div>
+                                <div id="likes-comments-container">
+                                    <span id="likes-count" class="glyphicon glyphicon-thumbs-up"></span>
+                                    <span id="comments-count" class="glyphicon glyphicon-comment"></span>
+                                </div>
+                                <div id="tags-container">
+                                    <ul id="tags-list">
+
+                                    </ul>
+                                </div>
+                                <div id="insta-button-container">
+                                    <a id="goToInstagram" target="_blank" class="btn btn-primary">Instagram</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="prepare-container" class="form-group">
+                                <label class="control-label" style="display:block">Sposób przygotowania</label>
+                                <textarea class="form-control" placeholder="Opisz sposób przygotowania dania..." cols="100" rows="6" style="max-width:99% !important; margin:0px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" style="display:inline-flex">
+                            <div id="ration-container">
+                                <label class="control-label" style="display:block">Liczba porcji</label>
+                                <input class="form-control" type="text" placeholder="np. 1-2" />
+                            </div>
+                            <div id="dificulty-container">
+                                <label class="control-label" style="display:block">Trudność</label>
+                                <select id="dificulty-select" class="form-control">
+                                    <option>Łatwe</option>
+                                    <option>Średnie</option>
+                                    <option>Trudne</option>
+                                </select>
+                            </div>
+                            <div id="type-container">
+                                <label class="control-label" style="display:block">Typ dania</label>
+                                <select id="type-select" class="form-control">
+                                    <option>Śniadanie</option>
+                                    <option>Lunch</option>
+                                    <option>Obiad</option>
+                                    <option>Deser</option>
+                                    <option>Przekąska</option>
+                                    <option>Kolacja</option>
+                                </select>
+                            </div>
+                            <div id="submit-container">
+                                <button id="saveRecipe" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-floppy-disk"></span>   Zapisz</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="add-recipe-success">
+                    <span align="center" class="glyphicon glyphicon-ok-sign"></span>
+                    <h3>Zapisano!</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

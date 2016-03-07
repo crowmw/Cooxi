@@ -5,6 +5,8 @@ using Microsoft.Owin.Security.Cookies;
 using IdentitySample.Models;
 using Owin;
 using System;
+using Owin.Security.Providers.Instagram;
+using Owin.Security.Providers.Instagram.Provider;
 
 namespace IdentitySample
 {
@@ -44,6 +46,22 @@ namespace IdentitySample
             // Once you check this option, your second step of verification during the login process will be remembered on the device where you logged in from.
             // This is similar to the RememberMe option when you log in.
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
+
+            var options = new InstagramAuthenticationOptions()
+            {
+                ClientId = "c023786272d54cc59f606a9c6d2bdcfd",
+                ClientSecret = "165758dbfbc048ccaa575b96e9e0b8e3",
+                Provider = new InstagramAuthenticationProvider
+                {
+                    OnAuthenticated = async context =>
+                    {
+                        string accessToken = context.AccessToken;
+                        string userName = context.UserName;
+                        var serializedUser = context.User;
+                    }
+                }
+            };
+            app.UseInstagramInAuthentication(options);
 
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(

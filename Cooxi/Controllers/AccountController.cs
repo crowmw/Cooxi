@@ -320,8 +320,6 @@ namespace IdentitySample.Controllers
             {
                 return RedirectToAction("Login");
             }
-
-            // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
             switch (result)
             {
@@ -330,52 +328,34 @@ namespace IdentitySample.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl });
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
                 case SignInStatus.Failure:
                 default:
-                    // If the user does not have an account, then prompt the user to create an account
-                    ViewBag.ReturnUrl = returnUrl;
-                    ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                    return await RegisterNewUser(returnUrl);
             }
         }
 
-        //
-        // POST: /Account/ExternalLoginConfirmation
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
+        private async Task<ActionResult> RegisterNewUser(string returnUrl)
         {
-            if (User.Identity.IsAuthenticated)
+            var info = await AuthenticationManager.GetExternalLoginInfoAsync();
+            if (info == null)
             {
-                return RedirectToAction("Index", "Manage");
+                return View("ExternalLoginFailure");
             }
 
-            if (ModelState.IsValid)
+            var user = new ApplicationUser { UserName = info.DefaultUserName, InstaUserId = info.Login.ProviderKey, InstaUserName = info.DefaultUserName, Email = info.DefaultUserName + "@gmail.com", AccessToken = info.ExternalIdentity.Claims.First(x => x.Type.Contains("accesstoken")).Value };
+            var res = await UserManager.CreateAsync(user);
+            if (res.Succeeded)
             {
-                // Get the information about the user from the external login provider
-                var info = await AuthenticationManager.GetExternalLoginInfoAsync();
-                if (info == null)
+                res = await UserManager.AddLoginAsync(user.Id, info.Login);
+                if (res.Succeeded)
                 {
-                    return View("ExternalLoginFailure");
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    return RedirectToLocal(returnUrl);
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user);
-                if (result.Succeeded)
-                {
-                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
-                    if (result.Succeeded)
-                    {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToLocal(returnUrl);
-                    }
-                }
-                AddErrors(result);
             }
-
-            ViewBag.ReturnUrl = returnUrl;
-            return View(model);
+            AddErrors(res);
+            return RedirectToLocal(returnUrl);
         }
 
         //

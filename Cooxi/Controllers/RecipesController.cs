@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Cooxi.Models;
 using IdentitySample.Models;
+using Cooxi.Models.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace Cooxi.Controllers
 {
@@ -16,20 +17,79 @@ namespace Cooxi.Controllers
     {
         private CooxiDbContext db = new CooxiDbContext();
 
-        // GET: Recipes
-        public async Task<ActionResult> Index()
+        [HttpPost]
+        public ActionResult SaveRecipe(SaveRecipeViewModel recipe)
         {
-            return View(await db.Recipe.ToListAsync());
+            try
+            {
+                var rcp = new Recipe()
+                {
+                    RecipeId = Guid.NewGuid(),
+                    InstagramId = recipe.instagramId,
+                    Title = recipe.title,
+                    Prepare = recipe.prepare,
+                    Ration = recipe.ration,
+                    Dificulty = recipe.dificulty,
+                    MealType = recipe.type
+                };
+
+                List<Tag> tagsList = new List<Tag>();
+                foreach (var tag in recipe.tags)
+                {
+                    tagsList.Add(new Tag()
+                    {
+                        TagId = Guid.NewGuid(),
+                        Name = tag
+                    });
+                }
+
+                rcp.Tags = tagsList;
+
+                string currentUserId = User.Identity.GetUserId();
+                rcp.User = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+
+                List<Ingredient> ingList = new List<Ingredient>();
+                foreach(var ing in recipe.ingredients)
+                {
+                    ingList.Add(new Ingredient()
+                    {
+                        IngredientId = Guid.NewGuid(),
+                        Name = ing.name,
+                        MeasureUnit = ing.measure,
+                        Count = float.Parse(ing.count)
+                    });
+                }
+
+                rcp.IngredientsList = ingList;
+                db.Recipe.Add(rcp);
+                db.SaveChanges();
+
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    errorMessage = "Nie udało sie dodać przepisu! \nERRORINFO: " + ex.Message
+                });
+            }
+        }
+
+        // GET: Recipes
+        public ActionResult Index()
+        {
+            return View(db.Recipe.ToList());
         }
 
         // GET: Recipes/Details/5
-        public async Task<ActionResult> Details(Guid? id)
+        public ActionResult Details(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Recipe recipe = await db.Recipe.FindAsync(id);
+            Recipe recipe = db.Recipe.Find(id);
             if (recipe == null)
             {
                 return HttpNotFound();
@@ -48,13 +108,13 @@ namespace Cooxi.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "RecipeId,Name,PrepareDescription,ImagePath,Note,ServingFor,Difficulty,MealType")] Recipe recipe)
+        public ActionResult Create([Bind(Include = "RecipeId,Name,PrepareDescription,ImagePath,Note,ServingFor,Difficulty,MealType")] Recipe recipe)
         {
             if (ModelState.IsValid)
             {
                 recipe.RecipeId = Guid.NewGuid();
                 db.Recipe.Add(recipe);
-                await db.SaveChangesAsync();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -62,13 +122,13 @@ namespace Cooxi.Controllers
         }
 
         // GET: Recipes/Edit/5
-        public async Task<ActionResult> Edit(Guid? id)
+        public ActionResult Edit(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Recipe recipe = await db.Recipe.FindAsync(id);
+            Recipe recipe = db.Recipe.Find(id);
             if (recipe == null)
             {
                 return HttpNotFound();
@@ -81,25 +141,25 @@ namespace Cooxi.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "RecipeId,Name,PrepareDescription,ImagePath,Note,ServingFor,Difficulty,MealType")] Recipe recipe)
+        public ActionResult Edit([Bind(Include = "RecipeId,Name,PrepareDescription,ImagePath,Note,ServingFor,Difficulty,MealType")] Recipe recipe)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(recipe).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(recipe);
         }
 
         // GET: Recipes/Delete/5
-        public async Task<ActionResult> Delete(Guid? id)
+        public ActionResult Delete(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Recipe recipe = await db.Recipe.FindAsync(id);
+            Recipe recipe = db.Recipe.Find(id);
             if (recipe == null)
             {
                 return HttpNotFound();
@@ -110,11 +170,11 @@ namespace Cooxi.Controllers
         // POST: Recipes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(Guid id)
+        public ActionResult DeleteConfirmed(Guid id)
         {
-            Recipe recipe = await db.Recipe.FindAsync(id);
+            Recipe recipe = db.Recipe.Find(id);
             db.Recipe.Remove(recipe);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 

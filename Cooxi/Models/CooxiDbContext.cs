@@ -9,10 +9,9 @@ namespace IdentitySample.Models
 {
     public class CooxiDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Recipe> Recipe { get; set; }
-        public DbSet<Ingredient> Ingredient { get; set; }
-        public DbSet<MeasureUnit> MeasureUnit { get; set; }
-        public DbSet<Tag> Tag { get; set; }
+        public virtual DbSet<Recipe> Recipe { get; set; }
+        public virtual DbSet<Ingredient> Ingredient { get; set; }
+        public virtual DbSet<Tag> Tag { get; set; }
 
         public CooxiDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

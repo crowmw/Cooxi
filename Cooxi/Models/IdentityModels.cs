@@ -12,6 +12,9 @@ namespace IdentitySample.Models
     public class ApplicationUser : IdentityUser
     {
         public virtual ICollection<Recipe> Recipes { get; set; }
+        public virtual string AccessToken { get; set; }
+        public virtual string InstaUserId { get; set; }
+        public virtual string InstaUserName { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

@@ -1,8 +1,8 @@
 ﻿<nav class="navbar navbar-default">
     <div class="container-fluid">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Strona główna</a></li>
-            <li><a href="#">Kategorie</a></li>
+            <li>@Html.ActionLink("Strona główna", "Index", "Home", null, new { id = "nav-index" })</li>
+            <li>@Html.ActionLink("Kategorie", "Index", "Recipes", null, new { id = "nav-categories" })</li>
             <li><a href="#">Ulubione</a></li>
         </ul>
     </div>

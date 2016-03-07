@@ -4,7 +4,8 @@
         @Html.AntiForgeryToken()
 
         <ul class="user-bar-options-list">
-            <li>@Html.ActionLink("dodaj przepis", "Create", "Recipe", routeValues: null, htmlAttributes: new { id = "add-recipe-link" })</li>
+            <li><a id="add-recipe-link" href="#" data-toggle="modal" data-target="#addRecipeModal">jQueryAdd</a></li>
+            <li>@Html.ActionLink("dodaj przepis", "Create", "Recipes", routeValues: null, htmlAttributes: new { id = "add-recipe-link" })</li>
             <li>@Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">wyloguj</a></li>
         </ul>
@@ -12,7 +13,7 @@
 }
 else {
     <ul class="user-bar-options-list">
-        <li>@Html.ActionLink("dodaj przepis", "Create", "Recipe", routeValues: null, htmlAttributes: new { id = "add-recipe-link" })</li>
+        <li>@Html.ActionLink("dodaj przepis", "Register", "Account", routeValues: null, htmlAttributes: new { id = "add-recipe-link" })</li>
         <li>@Html.ActionLink("załóż konto", "Register", "Account", routeValues: null, htmlAttributes: new { id = "register-link" })</li>
         <li>@Html.ActionLink("zaloguj", "Login", "Account", routeValues: null, htmlAttributes: new { id = "login-link" })</li>
     </ul>

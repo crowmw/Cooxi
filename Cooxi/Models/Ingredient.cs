@@ -6,15 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Cooxi.Models
-{
+{ 
     public class Ingredient
     {
-        [Required]
         public Guid IngredientId { get; set; }
-        [Required]
         public string Name { get; set; }
-        [Required]
-        public MeasureUnit MeasureUnit { get; set; }
+        public string MeasureUnit { get; set; }
+        public float Count { get; set; }
         public ICollection<Recipe> Recipe { get; set; }
     }
 }

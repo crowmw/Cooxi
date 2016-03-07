@@ -1,0 +1,148 @@
+﻿#ingredients-list {
+    list-style-type: none;
+    padding-top: 5px;
+    padding-left: 5px;
+    margin-top: 20px;
+    border:1px solid #ccc;
+    border-radius: 4px;
+}
+
+.modal-body {
+    min-height: 647px;
+}
+
+#insta-photos-list {
+    list-style-type: none;
+}
+
+    #insta-photos-list li {
+        display: inline;
+    }
+
+    #insta-photos-list img {
+        max-height: 150px;
+        max-width: 150px;
+        margin: 2px;
+    }
+        #insta-photos-list img:hover {
+        border: 1px solid #000000;
+    }
+
+#ingredients-list li {
+    height: 39px;
+}
+
+    #ingredients-list li * {
+        display: inline;
+    }
+
+    #ingredients-list li input:nth-child(2) {
+        max-width: 80px;
+    }
+
+    #ingredients-list li a {
+        text-decoration: none;
+    }
+
+    #ingredients-list li span {
+        top: 8px;
+        margin-left: 6px;
+    }
+
+#ingredients-list select,
+#added-ingredients-list select {
+    padding-left: 2px;
+    padding-right: 2px;
+    max-width: 100px;
+}
+
+.adding-ingredient-input-group {
+    display: inline;
+    max-height: 39px;
+    margin-right: 2px;
+}
+
+    .adding-ingredient-input-group input:nth-child(2) {
+        max-width: 80px;
+    }
+
+    .adding-ingredient-input-group select {
+        padding-left: 2px;
+        padding-right: 2px;
+        max-width: 100px;
+    }
+
+    .adding-ingredient-input-group span {
+        top: 8px;
+        margin-left: 10px;
+    }
+
+#title-container input{
+    max-width:100% !important;
+    width: 490px;
+}
+
+#add-ingredient span {
+    margin-left:5px;
+    margin-top:8px;
+}
+
+#ration-container input {
+    width:100px;
+}
+
+#dificulty-container {
+    margin-left: 10px;
+}
+
+#type-container {
+    margin-left: 10px;
+}
+
+#submit-container {
+    right:0px;
+    position:absolute;
+    margin-right: 23px;
+    margin-top: 15px;
+}
+
+#insta-container {
+    text-align: center;
+}
+.row-centered {
+    display: block;
+}
+#comments-count {
+    margin-left: 15px;
+}
+
+#goToInstagram {
+    width: 200px
+}
+
+#tags-list {
+    list-style-type: none;
+    padding:0px;
+}
+
+#tags-list li{
+    display: inline;
+}
+
+#tags-list li *{
+    margin-left: 3px;
+}
+
+#add-recipe-success {
+    text-align:center;
+    margin-top: 150px;
+}
+
+#add-recipe-success span {
+    color: green;
+    font-size: 150px;
+}
+
+#add-recipe-success h3 {
+    text-decoration: double;
+}

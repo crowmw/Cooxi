@@ -10,8 +10,14 @@ namespace IdentitySample
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jquersort").Include(
+                        "~/Scripts/jquery.dragsort-0.5.2.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
+
+            bundles.Add(new ScriptBundle("~/bundles/instagram").Include(
+                        "~/Scripts/instagram.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -28,7 +34,11 @@ namespace IdentitySample
                       "~/Content/UserBar.css",
                       "~/Content/SearchBar.css",
                       "~/Content/NavigationBar.css",
-                      "~/Content/SideBar.css"));
+                      "~/Content/SideBar.css",
+                      "~/Content/CreateRecipe.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/create-recipe").Include(
+                      "~/Scripts/app/CreateRecipe.js"));
         }
     }
 }
